@@ -9,5 +9,6 @@ namespace BuilderTools.Core.Services
         Task AddAsync(User user);
         Task<User> GetByEmailAsync(string email);
         Task<IEnumerable<User>> GetAllAsync();
+        Task<bool> IsEmailTakenAsync(string email);
     }
 }

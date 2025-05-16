@@ -3,6 +3,8 @@ using BuilderTools.Core;
 using BuilderTools.Infrastructure;
 using BuilderTools.Infrastructure.Exceptions;
 using BuilderTools.Infrastructure.Auth;
+using BuilderTools.Infrastructure.EF;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,7 +66,15 @@ builder.Services.AddAuthorization(authorization =>
     });
 });
 
+
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
+    dbContext.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {

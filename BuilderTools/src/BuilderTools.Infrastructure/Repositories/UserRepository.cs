@@ -28,6 +28,11 @@ namespace BuilderTools.Infrastructure.Repositories
             }
         }
 
+        public async Task<bool> IsEmailTakenAsync(string email)
+        {
+            return await _dbContext.Users.AnyAsync(u => u.Email == email);
+        }
+
         public async Task<User> GetByEmailAsync(string email)
         {
             try

@@ -22,20 +22,21 @@ namespace BuilderTools.Core.UseCase
 
         public async Task<User> ExecuteAsync(SignInDto SignInDto)
         {
-            var user = await _userRepository.GetByEmailAsync(SignInDto.Email);
-            if(user == null)
+            var user = await _userRepository.IsEmailTakenAsync(SignInDto.Email);
+            if(user == false)
             {
                 throw new InvalidCredentialsException("Nie ma użytkownika o takim emailu");
             }
-            if (!_passwordManager.Validate(SignInDto.Haslo, user.Haslo))
+            var userParm = await _userRepository.GetByEmailAsync(SignInDto.Email);
+            if (!_passwordManager.Validate(SignInDto.Haslo, userParm.Haslo))
             {
                 throw new InvalidCredentialsException("Blędne haslo");
             }
 
-            var jwt = _authenticator.CreateToken(user.Id, user.Rola);
+            var jwt = _authenticator.CreateToken(userParm.Id, userParm.Rola);
             _tokenStorage.Set(jwt);
 
-            return user;
+            return userParm;
         }
     }
 }

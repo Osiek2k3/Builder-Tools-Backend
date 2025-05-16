@@ -17,8 +17,8 @@ namespace BuilderTools.Core.UseCase
 
         public async Task ExecuteAsync(UserDto userDto)
         {
-            var user = await _userRepository.GetByEmailAsync(userDto.Email);
-            if (user is not null)
+            var user = await _userRepository.IsEmailTakenAsync(userDto.Email);
+            if (user == true)
             {
                 throw new InvalidCredentialsException("Ten Email jest zajety");
             }
