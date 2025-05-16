@@ -23,7 +23,7 @@ namespace BuilderTools.Core.UseCase
                 throw new InvalidCredentialsException("Ten Email jest zajety");
             }
 
-            userDto.Haslo = _passwordManager.Secure(userDto.Haslo);
+            userDto.Password = _passwordManager.Secure(userDto.Password);
             await _userRepository.AddAsync(userDto.ToModel());
         }
     }

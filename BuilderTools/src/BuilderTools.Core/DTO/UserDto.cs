@@ -5,75 +5,75 @@ namespace BuilderTools.Core.DTO
 {
     public class UserDto
     {
-        public Guid Id { get; set; }
-        public string Imie { get; set; }
-        public string Nazwisko { get; set; }
-        public bool Uprawnienia { get; set; }
-        public string Adres { get; set; }
+        public Guid UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public bool Permission { get; set; }
+        public string Address { get; set; }
         public string Email { get; set; }
-        public string Telefon { get; set; }
+        public string PhoneNumber { get; set; }
         public string? NIP { get; set; }
         public string? KRS { get; set; }
-        public string? NazwaFirmy { get; set; }
-        public string Rola { get; set; }
-        public string Haslo { get; set; }
+        public string? CompanyName { get; set; }
+        public string Role { get; set; }
+        public string Password { get; set; }
 
-        public UserDto(Guid id, string imie, string nazwisko, bool uprawnienia, string adres,
-            string email, string telefon, string nIP, string kRS, string nazwaFirmy, string rola, string haslo)
+        public UserDto(Guid id, string firstName, string lastName, bool permission, string address,
+                   string email, string phoneNumber, string? nip, string? krs, string? companyName,
+                   string role, string password)
         {
-            Id = id;
-            Imie = imie;
-            Nazwisko = nazwisko;
-            Uprawnienia = uprawnienia;
-            Adres = adres;
+            UserId = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Permission = permission;
+            Address = address;
             Email = email;
-            Telefon = telefon;
-            NIP = nIP;
-            KRS = kRS;
-            NazwaFirmy = nazwaFirmy;
-            Rola = rola;
-            Haslo = haslo;
+            PhoneNumber = phoneNumber;
+            NIP = nip;
+            KRS = krs;
+            CompanyName = companyName;
+            Role = role;
+            Password = password;
         }
 
-        public UserDto(Guid id, string imie, string nazwisko, bool uprawnienia, string adres,
-            string email, string telefon, string rola, string haslo)
+        public UserDto(Guid id, string firstName, string lastName, bool permission, string address,
+                       string email, string phoneNumber, string role, string password)
         {
-            Id = id;
-            Imie = imie;
-            Nazwisko = nazwisko;
-            Uprawnienia = uprawnienia;
-            Adres = adres;
+            UserId = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Permission = permission;
+            Address = address;
             Email = email;
-            Telefon = telefon;
+            PhoneNumber = phoneNumber;
             NIP = null;
             KRS = null;
-            NazwaFirmy = null;
-            Rola = rola;
-            Haslo = haslo;
+            CompanyName = null;
+            Role = role;
+            Password = password;
         }
 
-        public UserDto(Guid id, string imie, string nazwisko, string adres,
-            string email, string telefon, string nIP, string kRS, string nazwaFirmy, string rola, string haslo)
+        public UserDto(Guid id, string firstName, string lastName, string address,
+                       string email, string phoneNumber, string? nip, string? krs,
+                       string? companyName, string role, string password)
         {
-            Id = id;
-            Imie = imie;
-            Nazwisko = nazwisko;
-            Uprawnienia = false;
-            Adres = adres;
+            UserId = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Permission = false;
+            Address = address;
             Email = email;
-            Telefon = telefon;
-            NIP = nIP;
-            KRS = kRS;
-            NazwaFirmy = nazwaFirmy;
-            Rola = rola;
-            Haslo = haslo;
+            PhoneNumber = phoneNumber;
+            NIP = nip;
+            KRS = krs;
+            CompanyName = companyName;
+            Role = role;
+            Password = password;
         }
 
         public User ToModel()
         {
-            var user = new User(Id, Imie, Nazwisko, Uprawnienia, Adres, Email, Telefon, NIP, KRS, NazwaFirmy, Rola, Haslo);
-                
-            return user;
+            return new User(UserId, FirstName, LastName, Permission, Address, Email, PhoneNumber, NIP, KRS, CompanyName, Role, Password);
         }
     }
 }

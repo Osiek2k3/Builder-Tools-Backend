@@ -1,37 +1,40 @@
 ﻿
+using System.Net;
+
 namespace BuilderTools.Core.Model
 {
     public class User
     {
-        public Guid Id { get; set; }
-        public string Imie { get; set; }
-        public string Nazwisko { get; set; }
-        public bool Uprawnienia { get; set; }
-        public string Adres { get; set; }
+        public Guid UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public bool Permission { get; set; }
+        public string Address { get; set; }
         public string Email { get; set; }
-        public string Telefon { get; set; }
+        public string PhoneNumber { get; set; }
         public string? NIP { get; set; }
         public string? KRS { get; set; }
-        public string? NazwaFirmy { get; set; }
-        public string Rola { get; set; }
-        public string Haslo { get; set; }
+        public string? CompanyName { get; set; }
+        public string Role { get; set; }
+        public string Password { get; set; }
 
-        public User(Guid id, string imie, string nazwisko, bool uprawnienia, string adres,
-            string email, string telefon, string? nIP, string? kRS, string? nazwaFirmy, string rola, string haslo)
+        public User() { }
+
+        public User(Guid userId, string firstName, string lastName, bool permission, string address,
+            string email, string phoneNumber, string? nip, string? krs, string? companyName, string role, string password)
         {
-            Id = id;
-            Imie = imie;
-            Nazwisko = nazwisko;
-            Uprawnienia = uprawnienia;
-            Adres = adres;
+            UserId = userId;
+            FirstName = firstName;
+            LastName = lastName;
+            Permission = permission;
+            Address = address;
             Email = email;
-            Telefon = telefon;
-            NIP = nIP;
-            KRS = kRS;
-            NazwaFirmy = nazwaFirmy;
-            Rola = rola;
-            Haslo = haslo;
+            PhoneNumber = phoneNumber;
+            NIP = nip;
+            KRS = krs;
+            CompanyName = companyName;
+            Role = role;
+            Password = password;
         }
-
     }
 }

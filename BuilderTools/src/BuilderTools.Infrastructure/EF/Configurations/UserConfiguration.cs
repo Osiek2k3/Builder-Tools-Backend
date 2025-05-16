@@ -8,19 +8,19 @@ namespace BuilderTools.Infrastructure.EF.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(u => u.Id);
+            builder.HasKey(u => u.UserId);
 
-            builder.Property(u => u.Imie)
+            builder.Property(u => u.FirstName)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(u => u.Nazwisko)
+            builder.Property(u => u.LastName)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(u => u.Uprawnienia);
+            builder.Property(u => u.Permission);
 
-            builder.Property(u => u.Adres)
+            builder.Property(u => u.Address)
                 .IsRequired()
                 .HasMaxLength(250);
 
@@ -28,7 +28,7 @@ namespace BuilderTools.Infrastructure.EF.Configurations
                 .IsRequired()
                 .HasMaxLength(150);
 
-            builder.Property(u => u.Telefon)
+            builder.Property(u => u.PhoneNumber)
                 .IsRequired()
                 .HasMaxLength(50);
 
@@ -38,14 +38,14 @@ namespace BuilderTools.Infrastructure.EF.Configurations
             builder.Property(u => u.KRS)
                 .HasMaxLength(20);
 
-            builder.Property(u => u.NazwaFirmy)
+            builder.Property(u => u.CompanyName)
                 .HasMaxLength(150);
 
-            builder.Property(u => u.Rola)
+            builder.Property(u => u.Role)
                 .IsRequired()
                 .HasMaxLength(50);
 
-            builder.Property(u => u.Haslo)
+            builder.Property(u => u.Password)
                 .IsRequired()
                 .HasMaxLength(255);
         }

@@ -28,12 +28,12 @@ namespace BuilderTools.Core.UseCase
                 throw new InvalidCredentialsException("Nie ma użytkownika o takim emailu");
             }
             var userParm = await _userRepository.GetByEmailAsync(SignInDto.Email);
-            if (!_passwordManager.Validate(SignInDto.Haslo, userParm.Haslo))
+            if (!_passwordManager.Validate(SignInDto.Password, userParm.Password))
             {
                 throw new InvalidCredentialsException("Blędne haslo");
             }
 
-            var jwt = _authenticator.CreateToken(userParm.Id, userParm.Rola);
+            var jwt = _authenticator.CreateToken(userParm.UserId, userParm.Role);
             _tokenStorage.Set(jwt);
 
             return userParm;
