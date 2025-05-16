@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BuilderTools.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDataBase : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,9 +22,9 @@ namespace BuilderTools.Infrastructure.Migrations
                     Adres = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
                     Email = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     Telefon = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    NIP = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    KRS = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    NazwaFirmy = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    NIP = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    KRS = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    NazwaFirmy = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
                     Rola = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Haslo = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
                 },

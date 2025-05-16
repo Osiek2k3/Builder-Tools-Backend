@@ -9,6 +9,8 @@ namespace BuilderTools.Core
         {
             services.AddTransient<SignUpClientUseCase>();
             services.AddTransient<SignUpCompanyUseCase>();
+            services.AddTransient<SignInUseCase>();
+            services.AddTransient<GetAllUsers>();
             
             return services;
         }

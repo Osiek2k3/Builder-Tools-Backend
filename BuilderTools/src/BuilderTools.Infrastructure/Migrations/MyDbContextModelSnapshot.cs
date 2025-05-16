@@ -49,17 +49,14 @@ namespace BuilderTools.Infrastructure.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("KRS")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
                     b.Property<string>("NIP")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
                     b.Property<string>("NazwaFirmy")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 

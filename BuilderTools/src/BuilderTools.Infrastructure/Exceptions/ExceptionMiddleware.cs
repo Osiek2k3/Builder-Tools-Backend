@@ -30,6 +30,10 @@ namespace BuilderTools.Infrastructure.Exceptions
         {
             var (statusCode, error) = exception switch
             {
+                UnauthorizedAccessException => (
+                    StatusCodes.Status401Unauthorized,
+                    new Error("unauthorized_access", exception.Message)
+                ),
                 NotFoundException => (
                     StatusCodes.Status404NotFound,
                     new Error("not_found", exception.Message)

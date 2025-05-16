@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BuilderTools.Infrastructure.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250515125137_InitDataBase")]
-    partial class InitDataBase
+    [Migration("20250516102521_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,17 +52,14 @@ namespace BuilderTools.Infrastructure.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("KRS")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
                     b.Property<string>("NIP")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
                     b.Property<string>("NazwaFirmy")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 

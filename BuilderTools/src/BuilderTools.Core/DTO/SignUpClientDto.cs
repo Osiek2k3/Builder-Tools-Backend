@@ -3,7 +3,6 @@ namespace BuilderTools.Core.DTO
 {
     public class SignUpClientDto
     {
-        public Guid Id { get; set; }
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
         public bool Uprawnienia { get; set; }
@@ -15,13 +14,8 @@ namespace BuilderTools.Core.DTO
 
         public UserDto ToModel()
         {
-            if(Id == null || Guid.Empty == Id)
-            {
-                Id = Guid.NewGuid();
-            }
-
             var UserDto = new UserDto(
-                Id, Imie, Nazwisko, Uprawnienia, Adres, Email, Telefon, Rola, Haslo);
+                Guid.NewGuid(), Imie, Nazwisko, Uprawnienia, Adres, Email, Telefon, "Admin", Haslo);
 
             return UserDto;
         }

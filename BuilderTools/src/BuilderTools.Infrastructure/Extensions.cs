@@ -7,6 +7,8 @@ using BuilderTools.Core.Services;
 using BuilderTools.Infrastructure.Services;
 using BuilderTools.Infrastructure.Repositories;
 using BuilderTools.Infrastructure.Exceptions;
+using BuilderTools.Core.Model;
+using Microsoft.AspNetCore.Identity;
 
 namespace BuilderTools.Infrastructure
 {
@@ -23,6 +25,9 @@ namespace BuilderTools.Infrastructure
             });
             services.AddSingleton<IClock, Clock>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services
+                    .AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>()
+                    .AddSingleton<IPasswordManager, PasswordManager>();
             services.AddHttpContextAccessor();
             services.AddScoped<ExceptionMiddleware>();
             return services;

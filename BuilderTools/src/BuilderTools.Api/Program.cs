@@ -56,6 +56,14 @@ builder.Services.AddCore()
                 .AddInfrastructure(builder.Configuration)
                 .AddAuth(builder.Configuration);
 
+builder.Services.AddAuthorization(authorization =>
+{
+    authorization.AddPolicy("is-admin", policy =>
+    {
+        policy.RequireRole("Admin");
+    });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
