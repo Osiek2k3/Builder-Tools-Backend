@@ -4,7 +4,6 @@ namespace BuilderTools.Core.Model.ValueObjects
 {
     public sealed record Role
     {
-
         public static IEnumerable<string> AvailableRoles { get; } = new[] { "admin", "user" };
 
         public string Value { get; }

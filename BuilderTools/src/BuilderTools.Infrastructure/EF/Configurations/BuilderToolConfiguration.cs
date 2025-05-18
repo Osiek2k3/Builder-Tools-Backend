@@ -14,8 +14,7 @@ namespace BuilderTools.Infrastructure.EF.Configurations
             builder.Property(b => b.Permission).IsRequired();
             builder.Property(b => b.PricePerDay).HasColumnType("decimal(18,2)");
             builder.Property(bt => bt.Image)
-                .HasColumnType("bytea")   // <-- tu ważne, dla PostgreSQL
-                .IsRequired();
+                .HasColumnType("bytea").IsRequired();
 
             // Relacja 1 BuilderTool : 1 Category
             builder.HasOne<Category>()

@@ -38,7 +38,7 @@ namespace BuilderTools.Infrastructure.Migrations
                     NIP = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     KRS = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     CompanyName = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
-                    Role = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Role = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Password = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>

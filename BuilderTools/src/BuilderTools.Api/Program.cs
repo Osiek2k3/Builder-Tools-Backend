@@ -62,7 +62,7 @@ builder.Services.AddAuthorization(authorization =>
 {
     authorization.AddPolicy("is-admin", policy =>
     {
-        policy.RequireRole("Admin");
+        policy.RequireRole("admin");
     });
 });
 

@@ -239,8 +239,8 @@ namespace BuilderTools.Infrastructure.Migrations
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
 
                     b.HasKey("UserId");
 

@@ -1,5 +1,5 @@
 ﻿
-using System.Net;
+using BuilderTools.Core.Model.ValueObjects;
 
 namespace BuilderTools.Core.Model
 {
@@ -15,13 +15,13 @@ namespace BuilderTools.Core.Model
         public string? NIP { get; set; }
         public string? KRS { get; set; }
         public string? CompanyName { get; set; }
-        public string Role { get; set; }
+        public Role Role { get; set; }
         public string Password { get; set; }
 
         public User() { }
 
         public User(Guid userId, string firstName, string lastName, bool permission, string address,
-            string email, string phoneNumber, string? nip, string? krs, string? companyName, string role, string password)
+            string email, string phoneNumber, string? nip, string? krs, string? companyName, Role role, string password)
         {
             UserId = userId;
             FirstName = firstName;

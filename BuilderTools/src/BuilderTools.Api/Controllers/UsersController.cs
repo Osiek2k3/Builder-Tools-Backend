@@ -1,4 +1,5 @@
 ﻿using BuilderTools.Core.DTO;
+using BuilderTools.Core.Exceptions;
 using BuilderTools.Core.Services;
 using BuilderTools.Core.UseCase;
 using Microsoft.AspNetCore.Authorization;
@@ -18,24 +19,29 @@ namespace BuilderTools.Api.Controllers
         }
 
         [HttpPost("registerClient")]
-        [ProducesResponseType(typeof(SignUpClientDto),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SignUpDto),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> SignUpClient([FromForm] SignUpClientDto signUpClientDto,
-            [FromServices] SignUpClientUseCase _signUpClientUseCase)
+        public async Task<ActionResult> SignUpClient([FromForm] SignUpDto signUpClientDto,
+            [FromServices] SignUpUseCase _signUpClientUseCase)
         {
+            if (signUpClientDto.Role != "user" && signUpClientDto.Role != "admin")
+            {
+                return BadRequest(new { code = "BadRequest", reason = "Invalid role. Role must be either 'user' or 'admin'." });
+            }
+
             await _signUpClientUseCase.ExecuteAsync(signUpClientDto.ToModel());
             return Ok();
         }
 
-        [HttpPost("registerCompany")]
-        [ProducesResponseType(typeof(SignUpClientDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> SignUpCompany([FromForm] SignUpCompanyDto signUpCompanyDto,
-            [FromServices] SignUpCompanyUseCase _signUpCompanyUseCase)
-        {
-            await _signUpCompanyUseCase.ExecuteAsync(signUpCompanyDto.ToModel());
-            return Ok();
-        }
+        //[HttpPost("registerCompany")]
+        //[ProducesResponseType(typeof(SignUpDto), StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //public async Task<ActionResult> SignUpCompany([FromForm] SignUpCompanyDto signUpCompanyDto,
+        //    [FromServices] SignUpCompanyUseCase _signUpCompanyUseCase)
+        //{
+        //    await _signUpCompanyUseCase.ExecuteAsync(signUpCompanyDto.ToModel());
+        //    return Ok();
+        //}
 
         [HttpPost("signin")]
         [ProducesResponseType(typeof(JwtDto), StatusCodes.Status200OK)]

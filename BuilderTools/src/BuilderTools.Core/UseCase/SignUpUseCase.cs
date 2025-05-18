@@ -4,12 +4,12 @@ using BuilderTools.Core.Services;
 
 namespace BuilderTools.Core.UseCase
 {
-    public class SignUpCompanyUseCase
+    public class SignUpUseCase
     {
         private readonly IUserRepository _userRepository;
         private readonly IPasswordManager _passwordManager;
 
-        public SignUpCompanyUseCase(IUserRepository userRepository, IPasswordManager passwordManager)
+        public SignUpUseCase(IUserRepository userRepository, IPasswordManager passwordManager)
         {
             _userRepository = userRepository;
             _passwordManager = passwordManager;
@@ -17,6 +17,11 @@ namespace BuilderTools.Core.UseCase
 
         public async Task ExecuteAsync(UserDto userDto)
         {
+            if (userDto == null)
+            {
+                throw new InvalidCredentialsException("Invalid role. Role must be either 'user' or 'admin'.");
+            }
+
             var user = await _userRepository.IsEmailTakenAsync(userDto.Email);
             if (user == true)
             {
