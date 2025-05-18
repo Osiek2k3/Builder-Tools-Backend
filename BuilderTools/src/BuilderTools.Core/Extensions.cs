@@ -1,4 +1,5 @@
-﻿using BuilderTools.Core.UseCase;
+﻿using BuilderTools.Core.UseCase.CategoryCase;
+using BuilderTools.Core.UseCase.UserCase;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BuilderTools.Core
@@ -10,6 +11,11 @@ namespace BuilderTools.Core
             services.AddTransient<SignUpUseCase>();
             services.AddTransient<SignInUseCase>();
             services.AddTransient<GetAllUsers>();
+
+            services.AddTransient<AddCategoryUseCase>();
+            services.AddTransient<GetByIdCategoryUseCase>();
+            services.AddTransient<EditCategoryUseCase>();
+            services.AddTransient<GetAllCategoryUseCase>();
             
             return services;
         }

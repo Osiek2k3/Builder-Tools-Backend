@@ -2,7 +2,7 @@
 using BuilderTools.Core.Exceptions;
 using BuilderTools.Core.Services;
 
-namespace BuilderTools.Core.UseCase
+namespace BuilderTools.Core.UseCase.UserCase
 {
     public class SignUpUseCase
     {

@@ -1,4 +1,6 @@
-﻿namespace BuilderTools.Core.Model
+﻿using BuilderTools.Core.DTO;
+
+namespace BuilderTools.Core.Model
 {
     public class Category
     {
@@ -10,6 +12,11 @@
             CategoryId = categoryId;
             Name = name;
             Description = description;
+        }
+
+        public CategoryDto ToModel()
+        {
+            return new CategoryDto(CategoryId, Name, Description);
         }
     }
 }

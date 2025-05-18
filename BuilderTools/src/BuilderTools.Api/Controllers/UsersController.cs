@@ -1,7 +1,7 @@
 ﻿using BuilderTools.Core.DTO;
 using BuilderTools.Core.Exceptions;
 using BuilderTools.Core.Services;
-using BuilderTools.Core.UseCase;
+using BuilderTools.Core.UseCase.UserCase;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -28,6 +28,39 @@ namespace BuilderTools.Infrastructure.Repositories
             }
         }
 
+        public async Task UpdateAsync(User user)
+        {
+            try
+            {
+                var existingUser = await _dbContext.Users.FindAsync(user.UserId);
+                if (existingUser == null)
+                {
+                    throw new NotFoundException($"Użytkownik o ID '{user.UserId}' nie został znaleziony.");
+                }
+
+                // Aktualizacja właściwości
+                existingUser.FirstName = user.FirstName;
+                existingUser.LastName = user.LastName;
+                existingUser.Address = user.Address;
+                existingUser.Email = user.Email;
+                existingUser.PhoneNumber = user.PhoneNumber;
+                existingUser.NIP = user.NIP;
+                existingUser.KRS = user.KRS;
+                existingUser.CompanyName = user.CompanyName;
+                existingUser.Role = user.Role;
+                existingUser.Password = user.Password;
+                existingUser.Permission = user.Permission;
+
+                _dbContext.Users.Update(existingUser);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Błąd podczas edytowania użytkownika w bazie danych.", ex);
+            }
+        }
+
+
         public async Task<bool> IsEmailTakenAsync(string email)
         {
             return await _dbContext.Users.AnyAsync(u => u.Email == email);
