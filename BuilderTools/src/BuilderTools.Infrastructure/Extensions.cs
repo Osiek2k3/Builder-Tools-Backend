@@ -26,6 +26,8 @@ namespace BuilderTools.Infrastructure
             services.AddSingleton<IClock, Clock>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IBuilderToolRepository, BuilderToolRepository>();
+            services.AddScoped<IRentalRepository, RentalRepository>();
             services
                     .AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>()
                     .AddSingleton<IPasswordManager, PasswordManager>();

@@ -1,5 +1,6 @@
 ﻿
 using BuilderTools.Core.Model;
+using Microsoft.AspNetCore.Http;
 
 namespace BuilderTools.Core.DTO
 {
@@ -9,10 +10,10 @@ namespace BuilderTools.Core.DTO
         public string Name { get; set; }
         public bool Permission { get; set; } = false;
         public decimal PricePerDay { get; set; }
-        public Byte[] Image { get; set; }
+        public IFormFile Image { get; set; }
 
         public BuilderToolInputDto() { }
-        public BuilderToolInputDto(Guid categoryId, string name, bool permission, decimal pricePerDay, byte[] image)
+        public BuilderToolInputDto(Guid categoryId, string name, bool permission, decimal pricePerDay, IFormFile image)
         {
             CategoryId = categoryId;
             Name = name;
@@ -23,7 +24,14 @@ namespace BuilderTools.Core.DTO
 
         public BuilderTool ToModel()
         {
-            return new BuilderTool(Guid.NewGuid(), CategoryId, Name, Permission, PricePerDay, Image);
+            byte[] imageBytes = null;
+            if (Image != null)
+            {
+                using var ms = new MemoryStream();
+                Image.CopyTo(ms);
+                imageBytes = ms.ToArray();
+            }
+            return new BuilderTool(Guid.NewGuid(), CategoryId, Name, Permission, PricePerDay, imageBytes);
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿
-using BuilderTools.Core.DTO;
+using BuilderTools.Core.Model;
 
-namespace BuilderTools.Core.Model
+namespace BuilderTools.Core.DTO
 {
-    public class Rental
+    public class RentalInputDto
     {
-        public Guid RentalId { get; set; }
         public Guid UserId { get; set; }
         public Guid BuilderToolId { get; set; }
         public DateTime DataStart { get; set; }
@@ -15,10 +14,9 @@ namespace BuilderTools.Core.Model
         public decimal? ExtraCost { get; set; }
         public string? Notes { get; set; }
 
-        public Rental(Guid rentalId, Guid userId, Guid builderToolId, DateTime dataStart,
+        public RentalInputDto(Guid userId, Guid builderToolId, DateTime dataStart,
             DateTime dataEnd, decimal amount, decimal deposit, decimal? extraCost, string? notes)
         {
-            RentalId = rentalId;
             UserId = userId;
             BuilderToolId = builderToolId;
             DataStart = dataStart;
@@ -29,9 +27,9 @@ namespace BuilderTools.Core.Model
             Notes = notes;
         }
 
-        public RentalDto ToModel()
+        public Rental ToModel()
         {
-            return new RentalDto(RentalId, UserId, BuilderToolId, DataStart, DataEnd, Amount, Deposit, ExtraCost, Notes);
+            return new Rental(Guid.NewGuid(), UserId, BuilderToolId, DataStart, DataEnd, Amount, Deposit, ExtraCost, Notes);
         }
     }
 }

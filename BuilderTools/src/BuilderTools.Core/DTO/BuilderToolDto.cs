@@ -1,9 +1,9 @@
 ﻿
-using BuilderTools.Core.DTO;
+using BuilderTools.Core.Model;
 
-namespace BuilderTools.Core.Model
+namespace BuilderTools.Core.DTO
 {
-    public class BuilderTool
+    public class BuilderToolDto
     {
         public Guid BuilderToolId { get; set; }
         public Guid CategoryId { get; set; }
@@ -12,7 +12,7 @@ namespace BuilderTools.Core.Model
         public decimal PricePerDay { get; set; }
         public byte[] Image { get; set; }
 
-        public BuilderTool(Guid builderToolId, Guid categoryId, string name,
+        public BuilderToolDto(Guid builderToolId, Guid categoryId, string name,
             bool permission, decimal pricePerDay, byte[] image)
         {
             BuilderToolId = builderToolId;
@@ -23,9 +23,9 @@ namespace BuilderTools.Core.Model
             Image = image;
         }
 
-        public BuilderToolDto ToModel()
+        public BuilderTool ToModel()
         {
-            return new BuilderToolDto(BuilderToolId, CategoryId, Name, Permission, PricePerDay, Image);
+            return new BuilderTool(BuilderToolId, CategoryId, Name, Permission, PricePerDay, Image);
         }
     }
 }

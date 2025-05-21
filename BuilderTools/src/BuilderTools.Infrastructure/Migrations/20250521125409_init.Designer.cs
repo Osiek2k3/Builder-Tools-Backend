@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BuilderTools.Infrastructure.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250517111614_init")]
+    [Migration("20250521125409_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -98,11 +98,10 @@ namespace BuilderTools.Infrastructure.Migrations
                     b.Property<decimal>("Deposit")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("ExtraCost")
+                    b.Property<decimal?>("ExtraCost")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 

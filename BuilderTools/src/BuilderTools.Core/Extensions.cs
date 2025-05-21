@@ -1,4 +1,6 @@
-﻿using BuilderTools.Core.UseCase.CategoryCase;
+﻿using BuilderTools.Core.UseCase.BuilderToolCase;
+using BuilderTools.Core.UseCase.CategoryCase;
+using BuilderTools.Core.UseCase.RentalCase;
 using BuilderTools.Core.UseCase.UserCase;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +18,17 @@ namespace BuilderTools.Core
             services.AddTransient<GetByIdCategoryUseCase>();
             services.AddTransient<EditCategoryUseCase>();
             services.AddTransient<GetAllCategoryUseCase>();
-            
+
+            services.AddTransient<AddBuilderToolUseCase>();
+            services.AddTransient<EditBuilderToolUseCase>();
+            services.AddTransient<GetAllBuilderToolUseCase>();
+            services.AddTransient<GetByIdBuilderToolUseCase>();
+
+            services.AddTransient<AddRentalUseCase>();
+            services.AddTransient<EditRentalUseCase>();
+            services.AddTransient<GetAllRentalUseCase>();
+            services.AddTransient<GetByIdRentalUseCase>();
+
             return services;
         }
     }

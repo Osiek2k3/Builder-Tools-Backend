@@ -110,8 +110,8 @@ namespace BuilderTools.Infrastructure.Migrations
                     DataEnd = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     Deposit = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
-                    ExtraCost = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
-                    Notes = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
+                    ExtraCost = table.Column<decimal>(type: "numeric(18,2)", nullable: true),
+                    Notes = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
