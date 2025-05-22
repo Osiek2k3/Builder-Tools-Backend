@@ -2,6 +2,7 @@
 using BuilderTools.Core.UseCase.CategoryCase;
 using BuilderTools.Core.UseCase.RentalCase;
 using BuilderTools.Core.UseCase.UserCase;
+using BuilderTools.Core.UseCase.Validation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BuilderTools.Core
@@ -28,6 +29,9 @@ namespace BuilderTools.Core
             services.AddTransient<EditRentalUseCase>();
             services.AddTransient<GetAllRentalUseCase>();
             services.AddTransient<GetByIdRentalUseCase>();
+
+
+            services.AddTransient<RentalValidator>();
 
             return services;
         }

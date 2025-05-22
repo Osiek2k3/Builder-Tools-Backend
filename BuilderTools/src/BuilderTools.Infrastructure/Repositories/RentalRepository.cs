@@ -27,6 +27,12 @@ namespace BuilderTools.Infrastructure.Repositories
             }
         }
 
+        public async Task<bool> CheckIdRentalAsync(Guid rentalId)
+        {
+            return await _dbContext.Rentals
+                .AnyAsync(x => x.RentalId == rentalId);
+        }
+
         public async Task<IEnumerable<Rental>> GetAllAsync()
         {
             try
