@@ -20,23 +20,25 @@ namespace BuilderTools.Core.UseCase.UserCase
             _tokenStorage = tokenStorage;
         }
 
-        public async Task<User> ExecuteAsync(SignInDto SignInDto)
+        public async Task<User> ExecuteAsync(SignInDto signInDto)
         {
-            var user = await _userRepository.IsEmailTakenAsync(SignInDto.Email);
-            if(user == false)
+            var userExists = await _userRepository.IsEmailTakenAsync(signInDto.Email);
+            if (!userExists)
             {
                 throw new InvalidException("Nie ma użytkownika o takim emailu");
             }
-            var userParm = await _userRepository.GetByEmailAsync(SignInDto.Email);
-            if (!_passwordManager.Validate(SignInDto.Password, userParm.Password))
+
+            var user = await _userRepository.GetByEmailAsync(signInDto.Email);
+            if (!_passwordManager.Validate(signInDto.Password, user.Password))
             {
-                throw new InvalidException("Blędne haslo");
+                throw new InvalidException("Błędne hasło");
             }
 
-            var jwt = _authenticator.CreateToken(userParm.UserId, userParm.Role);
+            var jwt = await _authenticator.CreateToken(user.UserId, user.Role);
             _tokenStorage.Set(jwt);
 
-            return userParm;
+            return user;
         }
+
     }
 }

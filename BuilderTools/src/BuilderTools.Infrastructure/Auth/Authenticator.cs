@@ -60,7 +60,8 @@ namespace BuilderTools.Infrastructure.Auth
             {
                 UserId = userId,
                 AccessToken = token,
-                RefreshToken = refreshToken.Token
+                RefreshToken = refreshToken.Token,
+                Role = role
             };
         }
     }
