@@ -90,5 +90,14 @@ namespace BuilderTools.Infrastructure.Repositories
                 throw new DatabaseException("Błąd podczas edytowania kategorii.", ex);
             }
         }
+
+        public async Task<bool> IsToolAvailableAsync(Guid builderToolId, DateTime newStart, DateTime newEnd)
+        {
+            return !await _dbContext.Rentals
+                .AnyAsync(r =>
+                    r.BuilderToolId == builderToolId &&
+                    r.DataStart < newEnd &&
+                    r.DataEnd > newStart);
+        }
     }
 }

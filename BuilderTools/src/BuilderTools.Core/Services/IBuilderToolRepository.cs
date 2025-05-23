@@ -7,6 +7,7 @@ namespace BuilderTools.Core.Services
         Task AddAsync(BuilderTool BuilderTool);
         Task UpdateAsync(BuilderTool builder);
         Task<BuilderTool> GetByIdAsync(Guid BuilderToolId);
+        Task<bool> CheckIdBuilderToolAsync(Guid BbuilderToolId);
         Task<IEnumerable<BuilderTool>> GetAllAsync();
     }
 }

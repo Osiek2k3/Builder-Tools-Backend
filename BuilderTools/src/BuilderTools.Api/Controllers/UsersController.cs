@@ -1,5 +1,6 @@
 ﻿using BuilderTools.Core.DTO;
 using BuilderTools.Core.Exceptions;
+using BuilderTools.Core.Model;
 using BuilderTools.Core.Services;
 using BuilderTools.Core.UseCase.UserCase;
 using Microsoft.AspNetCore.Authorization;
@@ -68,6 +69,44 @@ namespace BuilderTools.Api.Controllers
             var users = await _getAllUsers.ExecuteAsync();
 
             return Ok(users);
+        }
+
+        [HttpPost("refresh-token")]
+        [ProducesResponseType(typeof(JwtDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<JwtDto>> RefreshToken(
+        [FromBody] RefreshRequestDto request,
+        [FromServices] IAuthenticator authenticator,
+        [FromServices] IRefreshTokenRepository refreshTokenRepository)
+        {
+            if (request.Role != "user" && request.Role != "admin")
+            {
+                return BadRequest(new { code = "BadRequest", reason = "Invalid role. Role must be either 'user' or 'admin'." });
+            }
+
+            var storedToken = await refreshTokenRepository.GetByTokenAsync(request.RefreshToken);
+
+            if (storedToken == null || storedToken.ExpiresAt < DateTime.UtcNow || storedToken.Revoked)
+            {
+                return BadRequest("Invalid or expired refresh token.");
+            }
+
+            await refreshTokenRepository.RevokeAsync(storedToken.Token);
+
+            var jwt = await authenticator.CreateToken(storedToken.UserId, request.Role);
+
+            var newRefreshToken = new RefreshToken
+            {
+                UserId = storedToken.UserId,
+                Token = Guid.NewGuid().ToString("N"),
+                ExpiresAt = DateTime.UtcNow.AddDays(7)
+            };
+
+            await refreshTokenRepository.AddAsync(newRefreshToken);
+
+            jwt.RefreshToken = newRefreshToken.Token;
+
+            return Ok(jwt);
         }
     }
 }

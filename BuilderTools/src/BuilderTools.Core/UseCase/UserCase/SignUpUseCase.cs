@@ -19,13 +19,13 @@ namespace BuilderTools.Core.UseCase.UserCase
         {
             if (userDto == null)
             {
-                throw new InvalidCredentialsException("Invalid role. Role must be either 'user' or 'admin'.");
+                throw new InvalidException("Invalid role. Role must be either 'user' or 'admin'.");
             }
 
             var user = await _userRepository.IsEmailTakenAsync(userDto.Email);
             if (user == true)
             {
-                throw new InvalidCredentialsException("Ten Email jest zajety");
+                throw new InvalidException("Ten Email jest zajety");
             }
 
             userDto.Password = _passwordManager.Secure(userDto.Password);

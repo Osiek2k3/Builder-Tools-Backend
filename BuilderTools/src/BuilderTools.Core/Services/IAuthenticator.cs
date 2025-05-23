@@ -4,6 +4,6 @@ namespace BuilderTools.Core.Services
 {
     public interface IAuthenticator
     {
-        JwtDto CreateToken(Guid userId, string role);
+        Task<JwtDto> CreateToken(Guid userId, string role);
     }
 }

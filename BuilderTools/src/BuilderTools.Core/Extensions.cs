@@ -31,6 +31,7 @@ namespace BuilderTools.Core
             services.AddTransient<GetByIdRentalUseCase>();
 
 
+            services.AddTransient<RentalInputDtoValidator>();
             services.AddTransient<RentalValidator>();
 
             return services;

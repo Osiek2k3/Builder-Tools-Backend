@@ -38,7 +38,6 @@ namespace BuilderTools.Infrastructure.Repositories
                     throw new NotFoundException($"Użytkownik o ID '{user.UserId}' nie został znaleziony.");
                 }
 
-                // Aktualizacja właściwości
                 existingUser.FirstName = user.FirstName;
                 existingUser.LastName = user.LastName;
                 existingUser.Address = user.Address;
@@ -93,5 +92,10 @@ namespace BuilderTools.Infrastructure.Repositories
             }
         }
 
+        public async Task<bool> CheckIdUserAsync(Guid userId)
+        {
+            return await _dbContext.Users
+                .AnyAsync(x => x.UserId == userId);
+        }
     }
 }

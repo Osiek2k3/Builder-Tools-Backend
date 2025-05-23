@@ -1,5 +1,8 @@
-﻿using BuilderTools.Core.DTO;
+﻿using System.Threading;
+using BuilderTools.Core.DTO;
 using BuilderTools.Core.UseCase.RentalCase;
+using BuilderTools.Core.UseCase.Validation;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,8 +17,15 @@ namespace BuilderTools.Api.Controllers
         [ProducesResponseType(typeof(RentalInputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> AddCategory([FromForm] RentalInputDto rentalInputDto,
-            [FromServices] AddRentalUseCase addRentalUseCase)
+            [FromServices] AddRentalUseCase addRentalUseCase,
+            [FromServices] RentalInputDtoValidator validationRules)
         {
+            var validationResult = await validationRules.ValidateAsync(rentalInputDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
+            }
+
             await addRentalUseCase.ExecuteAsync(rentalInputDto);
             return Ok();
         }
@@ -25,8 +35,15 @@ namespace BuilderTools.Api.Controllers
         [ProducesResponseType(typeof(RentalDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> EditCategory([FromForm] RentalDto rentalDto,
-            [FromServices] EditRentalUseCase editRentalUseCase)
+            [FromServices] EditRentalUseCase editRentalUseCase,
+            [FromServices] RentalValidator validationRules)
         {
+            var validationResult = await validationRules.ValidateAsync(rentalDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
+            }
+
             await editRentalUseCase.ExecuteAsync(rentalDto);
             return Ok();
         }

@@ -14,6 +14,8 @@ namespace BuilderTools.Core.DTO
         public decimal? ExtraCost { get; set; }
         public string? Notes { get; set; }
 
+        public RentalInputDto() { }
+
         public RentalInputDto(Guid userId, Guid builderToolId, DateTime dataStart,
             DateTime dataEnd, decimal amount, decimal deposit, decimal? extraCost, string? notes)
         {

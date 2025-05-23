@@ -12,6 +12,7 @@ namespace BuilderTools.Infrastructure.EF
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<RentalArchive> RentalArchives { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
         public MyDbContext(DbContextOptions<MyDbContext> dbContextOptions) : base(dbContextOptions)
         {
         }
@@ -24,6 +25,7 @@ namespace BuilderTools.Infrastructure.EF
             modelBuilder.ApplyConfiguration(new ReservationConfiguration());
             modelBuilder.ApplyConfiguration(new RentalConfiguration());
             modelBuilder.ApplyConfiguration(new RentalArchiveConfiguration());
+            modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
         }
     }
 }

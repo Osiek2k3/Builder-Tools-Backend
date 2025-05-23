@@ -25,12 +25,12 @@ namespace BuilderTools.Core.UseCase.UserCase
             var user = await _userRepository.IsEmailTakenAsync(SignInDto.Email);
             if(user == false)
             {
-                throw new InvalidCredentialsException("Nie ma użytkownika o takim emailu");
+                throw new InvalidException("Nie ma użytkownika o takim emailu");
             }
             var userParm = await _userRepository.GetByEmailAsync(SignInDto.Email);
             if (!_passwordManager.Validate(SignInDto.Password, userParm.Password))
             {
-                throw new InvalidCredentialsException("Blędne haslo");
+                throw new InvalidException("Blędne haslo");
             }
 
             var jwt = _authenticator.CreateToken(userParm.UserId, userParm.Role);

@@ -57,6 +57,8 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddCore()
                 .AddInfrastructure(builder.Configuration)
                 .AddAuth(builder.Configuration);
+                
+builder.Services.AddSingleton<ExceptionMiddleware>();
 
 builder.Services.AddAuthorization(authorization =>
 {

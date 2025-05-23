@@ -1,12 +1,13 @@
 ﻿using BuilderTools.Core.DTO;
+using BuilderTools.Core.Model;
 using BuilderTools.Core.Services;
 using FluentValidation;
 
 namespace BuilderTools.Core.UseCase.Validation
 {
-    public class RentalValidator : AbstractValidator<RentalDto>
+    public class RentalInputDtoValidator : AbstractValidator<RentalInputDto>
     {
-        public RentalValidator(IRentalRepository rentalRepository, IBuilderToolRepository builderToolRepository,
+        public RentalInputDtoValidator(IRentalRepository rentalRepository, IBuilderToolRepository builderToolRepository,
             IUserRepository userRepository)
         {
             RuleFor(x => x.UserId)
@@ -17,14 +18,6 @@ namespace BuilderTools.Core.UseCase.Validation
                 })
                 .WithMessage("Nie istnieje user o tym Id");
 
-            RuleFor(x => x.RentalId)
-                .MustAsync(async (id, cancellation) =>
-                {
-                    var exists = await rentalRepository.CheckIdRentalAsync(id);
-                    return !exists;
-                })
-                .WithMessage("wypożyczenie o tym Id już istnieje");
-
             RuleFor(x => x.BuilderToolId)
                 .MustAsync(async (id, cancellation) =>
                 {
@@ -32,7 +25,7 @@ namespace BuilderTools.Core.UseCase.Validation
                     return exists;
                 })
                 .WithMessage("Nie istnieje maszyna o tym Id");
-
+            
             RuleFor(x => x.DataStart)
                 .Must(startDate => startDate.Date > DateTime.UtcNow.Date)
                 .WithMessage("Data startu musi być późniejsza niż data obecna");

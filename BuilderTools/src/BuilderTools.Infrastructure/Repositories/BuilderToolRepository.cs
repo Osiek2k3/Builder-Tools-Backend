@@ -83,5 +83,11 @@ namespace BuilderTools.Infrastructure.Repositories
                 throw new DatabaseException("Błąd podczas próby polaczenia z baza.", ex);
             }
         }
+
+        public async Task<bool> CheckIdBuilderToolAsync(Guid builderToolId)
+        {
+            return await _dbContext.BuilderTools
+                .AnyAsync(x => x.BuilderToolId == builderToolId);
+        }
     }
 }

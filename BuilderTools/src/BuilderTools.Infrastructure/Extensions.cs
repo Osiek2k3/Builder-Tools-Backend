@@ -28,11 +28,12 @@ namespace BuilderTools.Infrastructure
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IBuilderToolRepository, BuilderToolRepository>();
             services.AddScoped<IRentalRepository, RentalRepository>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services
                     .AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>()
                     .AddSingleton<IPasswordManager, PasswordManager>();
             services.AddHttpContextAccessor();
-            services.AddScoped<ExceptionMiddleware>();
+            
             return services;
         }
 

@@ -80,5 +80,11 @@ namespace BuilderTools.Infrastructure.Repositories
                 throw new DatabaseException("Błąd podczas próby polaczenia z baza.", ex);
             }
         }
+
+        public async Task<bool> CheckIdCategoryAsync(Guid categoryId)
+        {
+            return await _dbContext.Categories
+                .AnyAsync(x => x.CategoryId == categoryId);
+        }
     }
 }

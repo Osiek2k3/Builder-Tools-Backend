@@ -9,6 +9,7 @@ namespace BuilderTools.Core.Services
         Task UpdateAsync(Rental rental);
         Task<Rental> GetByIdAsync(Guid rentalId);
         Task<bool> CheckIdRentalAsync(Guid rentalId);
+        Task<bool> IsToolAvailableAsync(Guid builderToolId, DateTime newStart, DateTime newEnd);
         Task<IEnumerable<Rental>> GetAllAsync();
     }
 }
