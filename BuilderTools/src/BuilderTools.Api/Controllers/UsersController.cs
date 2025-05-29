@@ -59,7 +59,7 @@ namespace BuilderTools.Api.Controllers
         }
 
         [HttpGet("getAll")]
-        [Authorize(Policy = "is-admin")]
+        //[Authorize(Policy = "is-admin")]
         [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

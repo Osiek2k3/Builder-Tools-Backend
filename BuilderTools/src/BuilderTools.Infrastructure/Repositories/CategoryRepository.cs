@@ -86,5 +86,15 @@ namespace BuilderTools.Infrastructure.Repositories
             return await _dbContext.Categories
                 .AnyAsync(x => x.CategoryId == categoryId);
         }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var category = await _dbContext.Categories.FindAsync(id);
+            if (category != null)
+            {
+                _dbContext.Categories.Remove(category);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
     }
 }

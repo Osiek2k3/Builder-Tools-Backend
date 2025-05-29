@@ -89,5 +89,65 @@ namespace BuilderTools.Infrastructure.Repositories
             return await _dbContext.BuilderTools
                 .AnyAsync(x => x.BuilderToolId == builderToolId);
         }
+
+        public async Task<IEnumerable<BuilderTool>> GetFilteredAsync(string? search, string? sortBy, string? order, int page, int pageSize)
+        {
+            try
+            {
+                var query = _dbContext.BuilderTools.AsQueryable();
+
+                if (!string.IsNullOrEmpty(search))
+                {
+                    query = query.Where(t => t.Name.ToLower().Contains(search.ToLower()));
+                }
+
+                query = (sortBy?.ToLower(), order?.ToLower()) switch
+                {
+                    ("price", "desc") => query.OrderByDescending(t => t.PricePerDay),
+                    ("price", _) => query.OrderBy(t => t.PricePerDay),
+                    ("name", "desc") => query.OrderByDescending(t => t.Name),
+                    _ => query.OrderBy(t => t.Name)
+                };
+
+                return await query
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Błąd podczas filtrowania i sortowania narzędzi", ex);
+            }
+        }
+
+        public async Task<int> GetCountAsync(string? search)
+        {
+            try
+            {
+                var query = _dbContext.BuilderTools.AsQueryable();
+
+                if (!string.IsNullOrEmpty(search))
+                {
+                    query = query.Where(t => t.Name.ToLower().Contains(search.ToLower()));
+                }
+
+                return await query.CountAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseException("Błąd podczas liczenia BuilderTooli", ex);
+            }
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var tool = await _dbContext.BuilderTools.FindAsync(id);
+            if (tool != null)
+            {
+                _dbContext.BuilderTools.Remove(tool);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+
     }
 }

@@ -8,12 +8,12 @@ namespace BuilderTools.Core.DTO
         public Guid BuilderToolId { get; set; }
         public Guid CategoryId { get; set; }
         public string Name { get; set; }
-        public bool Permission { get; set; } = false;
+        public string Permission { get; set; }
         public decimal PricePerDay { get; set; }
         public byte[] Image { get; set; }
 
         public BuilderToolDto(Guid builderToolId, Guid categoryId, string name,
-            bool permission, decimal pricePerDay, byte[] image)
+            string permission, decimal pricePerDay, byte[] image)
         {
             BuilderToolId = builderToolId;
             CategoryId = categoryId;

@@ -40,15 +40,10 @@ namespace BuilderTools.Infrastructure.Repositories
 
                 existingUser.FirstName = user.FirstName;
                 existingUser.LastName = user.LastName;
-                existingUser.Address = user.Address;
                 existingUser.Email = user.Email;
                 existingUser.PhoneNumber = user.PhoneNumber;
-                existingUser.NIP = user.NIP;
-                existingUser.KRS = user.KRS;
-                existingUser.CompanyName = user.CompanyName;
                 existingUser.Role = user.Role;
                 existingUser.Password = user.Password;
-                existingUser.Permission = user.Permission;
 
                 _dbContext.Users.Update(existingUser);
                 await _dbContext.SaveChangesAsync();

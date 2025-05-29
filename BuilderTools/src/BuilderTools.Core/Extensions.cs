@@ -19,16 +19,23 @@ namespace BuilderTools.Core
             services.AddTransient<GetByIdCategoryUseCase>();
             services.AddTransient<EditCategoryUseCase>();
             services.AddTransient<GetAllCategoryUseCase>();
+            services.AddTransient<DeleteCategoryUseCase>();
 
             services.AddTransient<AddBuilderToolUseCase>();
             services.AddTransient<EditBuilderToolUseCase>();
             services.AddTransient<GetAllBuilderToolUseCase>();
             services.AddTransient<GetByIdBuilderToolUseCase>();
-
+            services.AddTransient<GetFilteredBuilderToolsUseCase>();
+            services.AddTransient<GetBuilderToolCountUseCase>();
+            services.AddTransient<DeleteBuilderToolUseCase>();
+            
             services.AddTransient<AddRentalUseCase>();
             services.AddTransient<EditRentalUseCase>();
             services.AddTransient<GetAllRentalUseCase>();
             services.AddTransient<GetByIdRentalUseCase>();
+            services.AddTransient<GetCompletedRentalsUseCase>();
+            services.AddTransient<GetActiveRentalsUseCase>();
+            services.AddTransient<DeleteRentalUseCase>();
 
 
             services.AddTransient<RentalInputDtoValidator>();

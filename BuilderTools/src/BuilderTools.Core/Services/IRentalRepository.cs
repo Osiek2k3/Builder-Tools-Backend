@@ -11,5 +11,8 @@ namespace BuilderTools.Core.Services
         Task<bool> CheckIdRentalAsync(Guid rentalId);
         Task<bool> IsToolAvailableAsync(Guid builderToolId, DateTime newStart, DateTime newEnd);
         Task<IEnumerable<Rental>> GetAllAsync();
+        Task<IEnumerable<Rental>> GetActiveRentalsAsync(Guid userId);
+        Task<IEnumerable<Rental>> GetCompletedRentalsAsync(Guid userId);
+        Task DeleteAsync(Guid id);
     }
 }

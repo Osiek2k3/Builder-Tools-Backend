@@ -99,5 +99,32 @@ namespace BuilderTools.Infrastructure.Repositories
                     r.DataStart < newEnd &&
                     r.DataEnd > newStart);
         }
+
+        public async Task<IEnumerable<Rental>> GetActiveRentalsAsync(Guid userId)
+        {
+            var today = DateTime.UtcNow.Date;
+            return await _dbContext.Rentals
+                .Where(r => r.UserId == userId && r.DataEnd >= today)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Rental>> GetCompletedRentalsAsync(Guid userId)
+        {
+            var today = DateTime.UtcNow.Date;
+            return await _dbContext.Rentals
+                .Where(r => r.UserId == userId && r.DataEnd < today)
+                .ToListAsync();
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var rental = await _dbContext.Rentals.FindAsync(id);
+            if (rental != null)
+            {
+                _dbContext.Rentals.Remove(rental);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+
     }
 }

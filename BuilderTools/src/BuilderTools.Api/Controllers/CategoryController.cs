@@ -31,6 +31,17 @@ namespace BuilderTools.Api.Controllers
             return Ok();
         }
 
+        [HttpDelete("{id}")]
+        [Authorize(Policy = "is-admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteCategory(Guid id, [FromServices] DeleteCategoryUseCase useCase)
+        {
+            await useCase.ExecuteAsync(id);
+            return NoContent();
+        }
+
+
         [HttpGet("GetById")]
         [ProducesResponseType(typeof(CategoryDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -9,8 +9,6 @@ namespace BuilderTools.Core.DTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool Permission { get; set; }
-        public string Address { get; set; }
         [EmailAddress(ErrorMessage = "Invalid email format.")]
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
@@ -22,14 +20,14 @@ namespace BuilderTools.Core.DTO
             if (Role == "user")
             {
                 var UserDto = new UserDto(
-                Guid.NewGuid(), FirstName, LastName, Permission, Address, Email, PhoneNumber,
+                Guid.NewGuid(), FirstName, LastName, Email, PhoneNumber,
                 new Role("user"), Password);
                 return UserDto;
             }
             else 
             {
                 var UserDto = new UserDto(
-                Guid.NewGuid(), FirstName, LastName, Permission, Address, Email, PhoneNumber,
+                Guid.NewGuid(), FirstName, LastName, Email, PhoneNumber,
                 new Role("admin"), Password);
                 return UserDto;
             }

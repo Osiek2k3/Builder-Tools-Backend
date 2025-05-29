@@ -22,7 +22,7 @@ namespace BuilderTools.Api.Controllers
         }
 
         [HttpPut("EditBuildertool")]
-        [Authorize(Policy = "is-admin")]
+        //[Authorize(Policy = "is-admin")]
         [ProducesResponseType(typeof(BuilderToolDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> EditCategory([FromForm] BuilderToolDto builderToolDto,
@@ -31,6 +31,17 @@ namespace BuilderTools.Api.Controllers
             await editBuilderToolUseCase.ExecuteAsync(builderToolDto);
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        [Authorize(Policy = "is-admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteBuilderTool(Guid id, [FromServices] DeleteBuilderToolUseCase useCase)
+        {
+            await useCase.ExecuteAsync(id);
+            return NoContent();
+        }
+
 
         [HttpGet("GetById")]
         [ProducesResponseType(typeof(BuilderToolDto), StatusCodes.Status200OK)]
@@ -54,5 +65,27 @@ namespace BuilderTools.Api.Controllers
             return Ok(builderTools);
         }
 
+        [HttpGet("Filtered")]
+        [ProducesResponseType(typeof(IEnumerable<BuilderToolDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<BuilderToolDto>>> GetFiltered(
+        [FromServices] GetFilteredBuilderToolsUseCase useCase,
+        [FromQuery] string? search = null, [FromQuery] string? sortBy = "name",
+        [FromQuery] string? order = "asc", [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            var result = await useCase.ExecuteAsync(search, sortBy, order, page, pageSize);
+            return Ok(result);
+        }
+
+        [HttpGet("Count")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<int>> GetCount(
+            [FromQuery] string? search, [FromServices] GetBuilderToolCountUseCase useCase)
+        {
+            var count = await useCase.ExecuteAsync(search);
+            return Ok(count);
+        }
     }
 }
+

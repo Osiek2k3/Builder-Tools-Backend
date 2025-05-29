@@ -9,5 +9,6 @@ namespace BuilderTools.Core.Services
         Task<Category> GetByIdAsync(Guid categoryId);
         Task<bool> CheckIdCategoryAsync(Guid categoryId);
         Task<IEnumerable<Category>> GetAllAsync();
+        Task DeleteAsync(Guid id);
     }
 }

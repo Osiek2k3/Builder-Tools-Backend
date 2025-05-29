@@ -25,19 +25,29 @@ namespace BuilderTools.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Token = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    ExpiresAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Revoked = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Permission = table.Column<bool>(type: "boolean", nullable: false),
-                    Address = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
                     Email = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     PhoneNumber = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    NIP = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
-                    KRS = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
-                    CompanyName = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
                     Role = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Password = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
                 },
@@ -53,7 +63,7 @@ namespace BuilderTools.Infrastructure.Migrations
                     BuilderToolId = table.Column<Guid>(type: "uuid", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    Permission = table.Column<bool>(type: "boolean", nullable: false),
+                    Permission = table.Column<string>(type: "text", nullable: false),
                     PricePerDay = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     Image = table.Column<byte[]>(type: "bytea", nullable: false)
                 },
@@ -197,6 +207,9 @@ namespace BuilderTools.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "RefreshTokens");
+
             migrationBuilder.DropTable(
                 name: "RentalArchives");
 

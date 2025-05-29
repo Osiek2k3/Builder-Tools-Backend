@@ -9,5 +9,9 @@ namespace BuilderTools.Core.Services
         Task<BuilderTool> GetByIdAsync(Guid BuilderToolId);
         Task<bool> CheckIdBuilderToolAsync(Guid BbuilderToolId);
         Task<IEnumerable<BuilderTool>> GetAllAsync();
+        Task<IEnumerable<BuilderTool>> GetFilteredAsync(string? search, string? sortBy, string? order, int page, int pageSize);
+        Task<int> GetCountAsync(string? search);
+        Task DeleteAsync(Guid id);
+
     }
 }

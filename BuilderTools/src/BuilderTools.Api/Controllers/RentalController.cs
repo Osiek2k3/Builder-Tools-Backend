@@ -13,7 +13,7 @@ namespace BuilderTools.Api.Controllers
     public class RentalController : ControllerBase
     {
         [HttpPost("AddRental")]
-        [Authorize(Policy = "is-admin")]
+        [Authorize]
         [ProducesResponseType(typeof(RentalInputDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> AddCategory([FromForm] RentalInputDto rentalInputDto,
@@ -31,7 +31,7 @@ namespace BuilderTools.Api.Controllers
         }
 
         [HttpPut("EditRental")]
-        [Authorize(Policy = "is-admin")]
+        [Authorize]
         [ProducesResponseType(typeof(RentalDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> EditCategory([FromForm] RentalDto rentalDto,
@@ -49,6 +49,7 @@ namespace BuilderTools.Api.Controllers
         }
 
         [HttpGet("GetById")]
+        [Authorize(Policy = "is-admin")]
         [ProducesResponseType(typeof(RentalDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<CategoryDto>> GetById([FromQuery] Guid builderToolId,
@@ -59,6 +60,7 @@ namespace BuilderTools.Api.Controllers
         }
 
         [HttpGet("GetAll")]
+        [Authorize(Policy = "is-admin")]
         [ProducesResponseType(typeof(RentalDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<RentalDto>>> GetAll(
@@ -67,5 +69,38 @@ namespace BuilderTools.Api.Controllers
             var rental = await getAllRentalUseCase.ExecuteAsync();
             return Ok(rental);
         }
+
+        [HttpGet("Active")]
+        [Authorize]
+        [ProducesResponseType(typeof(IEnumerable<RentalDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<RentalDto>>> GetActiveRentals(
+            [FromQuery] Guid userId, [FromServices] GetActiveRentalsUseCase useCase)
+        {
+            var rentals = await useCase.ExecuteAsync(userId);
+            return Ok(rentals);
+        }
+
+        [HttpGet("Completed")]
+        [Authorize]
+        [ProducesResponseType(typeof(IEnumerable<RentalDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<RentalDto>>> GetCompletedRentals(
+            [FromQuery] Guid userId, [FromServices] GetCompletedRentalsUseCase useCase)
+        {
+            var rentals = await useCase.ExecuteAsync(userId);
+            return Ok(rentals);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteRental(Guid id, [FromServices] DeleteRentalUseCase useCase)
+        {
+            await useCase.ExecuteAsync(id);
+            return NoContent();
+        }
+
     }
 }
