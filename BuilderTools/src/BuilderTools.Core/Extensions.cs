@@ -36,7 +36,7 @@ namespace BuilderTools.Core
             services.AddTransient<GetCompletedRentalsUseCase>();
             services.AddTransient<GetActiveRentalsUseCase>();
             services.AddTransient<DeleteRentalUseCase>();
-
+            services.AddTransient<UpdateRentalExtrasUseCase>();
 
             services.AddTransient<RentalInputDtoValidator>();
             services.AddTransient<RentalValidator>();

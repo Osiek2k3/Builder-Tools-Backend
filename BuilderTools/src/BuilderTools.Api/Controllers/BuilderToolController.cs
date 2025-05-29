@@ -10,6 +10,9 @@ namespace BuilderTools.Api.Controllers
     [Route("[controller]")]
     public class BuilderToolController : ControllerBase
     {
+        /// <summary>
+        /// Dodanie sprzętu budowlanego 
+        /// </summary>
         [HttpPost("AddBuildertool")]
         [Authorize(Policy = "is-admin")]
         [ProducesResponseType(typeof(BuilderToolInputDto), StatusCodes.Status200OK)]
@@ -21,8 +24,11 @@ namespace BuilderTools.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Edytowanie sprzętu budowlanego 
+        /// </summary>
         [HttpPut("EditBuildertool")]
-        //[Authorize(Policy = "is-admin")]
+        [Authorize(Policy = "is-admin")]
         [ProducesResponseType(typeof(BuilderToolDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> EditCategory([FromForm] BuilderToolDto builderToolDto,
@@ -32,6 +38,9 @@ namespace BuilderTools.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Usuwanie sprzętu budowlanego 
+        /// </summary>
         [HttpDelete("{id}")]
         [Authorize(Policy = "is-admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -42,7 +51,9 @@ namespace BuilderTools.Api.Controllers
             return NoContent();
         }
 
-
+        /// <summary>
+        /// Zwracanie jednego sprzętu budowlanego po Id
+        /// </summary>
         [HttpGet("GetById")]
         [ProducesResponseType(typeof(BuilderToolDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -53,6 +64,9 @@ namespace BuilderTools.Api.Controllers
             return Ok(category);
         }
 
+        /// <summary>
+        /// Zwracanie wszystkich sprzętu budowlanego
+        /// </summary>
         [HttpGet("GetAll")]
         [ProducesResponseType(typeof(BuilderToolDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -65,6 +79,9 @@ namespace BuilderTools.Api.Controllers
             return Ok(builderTools);
         }
 
+        /// <summary>
+        /// Filtrowanie z piginacją sprzętu budowlanego
+        /// </summary>
         [HttpGet("Filtered")]
         [ProducesResponseType(typeof(IEnumerable<BuilderToolDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,6 +94,9 @@ namespace BuilderTools.Api.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Zwracanie liczby wszystkich maszyn
+        /// </summary>
         [HttpGet("Count")]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

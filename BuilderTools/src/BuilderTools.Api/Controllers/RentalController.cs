@@ -12,6 +12,9 @@ namespace BuilderTools.Api.Controllers
     [Route("[controller]")]
     public class RentalController : ControllerBase
     {
+        /// <summary>
+        /// Dodanie wypozyczenia
+        /// </summary>
         [HttpPost("AddRental")]
         [Authorize]
         [ProducesResponseType(typeof(RentalInputDto), StatusCodes.Status200OK)]
@@ -30,6 +33,9 @@ namespace BuilderTools.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Edytowanie wypozyczenia
+        /// </summary>
         [HttpPut("EditRental")]
         [Authorize]
         [ProducesResponseType(typeof(RentalDto), StatusCodes.Status200OK)]
@@ -48,6 +54,9 @@ namespace BuilderTools.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Zwracanie jednego wypozyczenia
+        /// </summary>
         [HttpGet("GetById")]
         [Authorize(Policy = "is-admin")]
         [ProducesResponseType(typeof(RentalDto), StatusCodes.Status200OK)]
@@ -59,6 +68,9 @@ namespace BuilderTools.Api.Controllers
             return Ok(rental);
         }
 
+        /// <summary>
+        /// Zwracanie wszystkich wypozyczenia
+        /// </summary>
         [HttpGet("GetAll")]
         [Authorize(Policy = "is-admin")]
         [ProducesResponseType(typeof(RentalDto), StatusCodes.Status200OK)]
@@ -70,6 +82,9 @@ namespace BuilderTools.Api.Controllers
             return Ok(rental);
         }
 
+        /// <summary>
+        /// Zwracanie aktywnych i przyszlych wypozyczenia usera
+        /// </summary>
         [HttpGet("Active")]
         [Authorize]
         [ProducesResponseType(typeof(IEnumerable<RentalDto>), StatusCodes.Status200OK)]
@@ -81,6 +96,9 @@ namespace BuilderTools.Api.Controllers
             return Ok(rentals);
         }
 
+        /// <summary>
+        /// Zwracanie archiwalnych wypozyczenia usera
+        /// </summary>
         [HttpGet("Completed")]
         [Authorize]
         [ProducesResponseType(typeof(IEnumerable<RentalDto>), StatusCodes.Status200OK)]
@@ -92,6 +110,9 @@ namespace BuilderTools.Api.Controllers
             return Ok(rentals);
         }
 
+        /// <summary>
+        /// Usuwanie wypozyczenia
+        /// </summary>
         [HttpDelete("{id}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -99,6 +120,20 @@ namespace BuilderTools.Api.Controllers
         public async Task<IActionResult> DeleteRental(Guid id, [FromServices] DeleteRentalUseCase useCase)
         {
             await useCase.ExecuteAsync(id);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Edytowanie i dodawanie dodatkowych kosztów
+        /// </summary>
+        [HttpPatch("UpdateExtras")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateExtras(
+            [FromBody] UpdateRentalExtrasDto dto,
+            [FromServices] UpdateRentalExtrasUseCase useCase)
+        {
+            await useCase.ExecuteAsync(dto);
             return NoContent();
         }
 

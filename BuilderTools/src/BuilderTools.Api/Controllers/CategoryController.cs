@@ -9,6 +9,9 @@ namespace BuilderTools.Api.Controllers
     [Route("[controller]")]
     public class CategoryController : ControllerBase
     {
+        /// <summary>
+        /// Dodanie kategorii
+        /// </summary>
         [HttpPost("AddCategory")]
         [Authorize(Policy = "is-admin")]
         [ProducesResponseType(typeof(CategoryInputDto), StatusCodes.Status200OK)]
@@ -20,6 +23,9 @@ namespace BuilderTools.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Edytowanie kategorii
+        /// </summary>
         [HttpPut("EditCategory")]
         [Authorize(Policy = "is-admin")]
         [ProducesResponseType(typeof(CategoryDto), StatusCodes.Status200OK)]
@@ -31,6 +37,9 @@ namespace BuilderTools.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Usuwanie kategorii
+        /// </summary>
         [HttpDelete("{id}")]
         [Authorize(Policy = "is-admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -41,7 +50,9 @@ namespace BuilderTools.Api.Controllers
             return NoContent();
         }
 
-
+        /// <summary>
+        /// Zwracanie jednej kategorii
+        /// </summary>
         [HttpGet("GetById")]
         [ProducesResponseType(typeof(CategoryDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -52,6 +63,9 @@ namespace BuilderTools.Api.Controllers
             return Ok(category);
         }
 
+        /// <summary>
+        /// Zwracanie wszystkich kategorii
+        /// </summary>
         [HttpGet("GetAll")]
         [ProducesResponseType(typeof(CategoryDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
